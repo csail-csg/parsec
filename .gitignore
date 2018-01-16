@@ -1,0 +1,11 @@
+/log
+/pkgs/*/*/inst
+/pkgs/*/*/inputs
+/pkgs/*/*/obj
+/pkgs/*/*/run
+/pkgs/netapps
+/ext/splash2x/*/*/inputs
+/ext/splash2x/*/*/inst
+/ext/splash2x/*/*/obj
+/ext/splash2x/*/*/run
+/ext/splash2
