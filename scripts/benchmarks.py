@@ -9,18 +9,51 @@ parsec_param = {}
 parsec_param['blackscholes'] = {
     'dir': 'pkgs/apps',
     'run_args': {
-        'simdev'    : '%s in_16.txt  out.txt' ,
-        'simsmall'  : '%s in_4K.txt  out.txt' ,
-        'simmedium' : '%s in_16K.txt out.txt' ,
-        'simlarge'  : '%s in_64K.txt out.txt' ,
+        'simdev'   : '%s in_16.txt  out.txt',
+        'simsmall' : '%s in_4K.txt  out.txt',
+        'simmedium': '%s in_16K.txt out.txt',
+        'simlarge' : '%s in_64K.txt out.txt',
     },
     'show_res': {
-        'simdev'    : 'wc -l out.txt; head out.txt; tail out.txt',
-        'simsmall'  : 'wc -l out.txt; head out.txt; tail out.txt',
-        'simmedium' : 'wc -l out.txt; head out.txt; tail out.txt',
-        'simlarge'  : 'wc -l out.txt; head out.txt; tail out.txt',
+        'simdev'   : 'wc -l out.txt; head out.txt; tail out.txt',
+        'simsmall' : 'wc -l out.txt; head out.txt; tail out.txt',
+        'simmedium': 'wc -l out.txt; head out.txt; tail out.txt',
+        'simlarge' : 'wc -l out.txt; head out.txt; tail out.txt',
     },
 }
+
+parsec_param['streamcluster'] = {
+    'dir': 'pkgs/kernels',
+    'run_args': {
+        'simdev'   : '3  10 3   16    16    10   none out.txt %s',
+        'simsmall' : '10 20 32  4096  4096  1000 none out.txt %s',
+        'simmedium': '10 20 64  8192  8192  1000 none out.txt %s',
+        'simlarge' : '10 20 128 16384 16384 1000 none out.txt %s',
+    },
+    'show_res': {
+        'simdev'   : 'wc -l out.txt; cat out.txt',
+        'simsmall' : 'wc -l out.txt; cat out.txt',
+        'simmedium': 'wc -l out.txt; cat out.txt',
+        'simlarge' : 'wc -l out.txt; cat out.txt',
+    },
+}
+
+parsec_param['fluidanimate'] = {
+    'dir': 'pkgs/apps',
+    'run_args': {
+        'simdev'   : '%s 3 in_15K.fluid  out.fluid',
+        'simsmall' : '%s 5 in_35K.fluid  out.fluid',
+        'simmedium': '%s 5 in_100K.fluid out.fluid',
+        'simlarge' : '%s 5 in_300K.fluid out.fluid',
+    },
+    'show_res': {
+        'simdev'   : 'du -sh out.fluid',
+        'simsmall' : 'du -sh out.fluid',
+        'simmedium': 'du -sh out.fluid',
+        'simlarge' : 'du -sh out.fluid',
+    },
+}
+
 
 '''
 parsec3_param['bodytrack'] = {
@@ -49,14 +82,6 @@ parsec3_param['ferret'] = {
         'large'  : 'corel lsh queries 10 20 %s ferret_large.out'  ,
         }
 
-parsec3_param['fluidanimate'] = {
-        'dir'    : 'pkgs/apps',
-        'dev'    : '%s 3 in_15K.fluid fluidanimate_dev.out'     ,
-        'small'  : '%s 5 in_35K.fluid fluidanimate_small.out'   ,
-        'medium' : '%s 5 in_100K.fluid fluidanimate_medium.out' ,
-        'large'  : '%s 5 in_300K.fluid fluidanimate_large.out'  ,
-        }
-
 parsec3_param['freqmine'] = {
         'dir'    : 'pkgs/apps',
         # freqmine.out will be removed in program
@@ -64,14 +89,6 @@ parsec3_param['freqmine'] = {
         'small'  : 'kosarak_250k.dat 220 freqmine.out %s' ,
         'medium' : 'kosarak_500k.dat 410 freqmine.out %s' ,
         'large'  : 'kosarak_990k.dat 790 freqmine.out %s' ,
-        }
-
-parsec3_param['streamcluster'] = {
-        'dir'    : 'pkgs/kernels',
-        'dev'    : '3 10 3 16 16 10 none streamcluster_dev.out %s'              ,
-        'small'  : '10 20 32 4096 4096 1000 none streamcluster_small.out %s'    ,
-        'medium' : '10 20 64 8192 8192 1000 none streamcluster_medium.out %s'   ,
-        'large'  : '10 20 128 16384 16384 1000 none streamcluster_large.out %s' ,
         }
 
 parsec3_param['swaptions'] = {

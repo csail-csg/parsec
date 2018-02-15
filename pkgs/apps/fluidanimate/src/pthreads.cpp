@@ -29,6 +29,8 @@
 #include <hooks.h>
 #endif
 
+#include "riscv_custom.h"
+
 //Uncomment to add code to check that Courant–Friedrichs–Lewy condition is satisfied at runtime
 //#define ENABLE_CFL_CHECK
 
@@ -1240,6 +1242,8 @@ int main(int argc, char *argv[])
 #ifdef ENABLE_PARSEC_HOOKS
   __parsec_roi_begin();
 #endif
+  riscv_roi_begin();
+
 #if defined(WIN32)
   thread_args* targs = (thread_args*)alloca(sizeof(thread_args)*threadnum);
 #else
@@ -1262,6 +1266,7 @@ int main(int argc, char *argv[])
 #ifdef ENABLE_PARSEC_HOOKS
   __parsec_roi_end();
 #endif
+  riscv_roi_end();
 
   if(argc > 4)
     SaveFile(argv[4]);
