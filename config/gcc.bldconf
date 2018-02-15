@@ -68,7 +68,7 @@ export M4="${GNUTOOL_HOME}/bin/m4"
 export MAKE="${GNUTOOL_HOME}/bin/make"
 
 # Flags for increased portability of binaries
-PORTABILITY_FLAGS="-I${RISCY_HOME}/riscv_custom_header -static-libgcc -static-libstdc++ -static -Wl,--hash-style=both,--as-needed"
+PORTABILITY_FLAGS="-I${RISCY_HOME}/riscv_custom -static-libgcc -static-libstdc++ -static -Wl,--hash-style=both,--as-needed"
 
 # Arguments to use
 export CFLAGS="-O3 -g -funroll-loops -fprefetch-loop-arrays ${PORTABILITY_FLAGS}"
