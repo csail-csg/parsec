@@ -34,6 +34,8 @@ tbb::cache_aligned_allocator<parm> memory_parm;
 #include <hooks.h>
 #endif
 
+#include "riscv_custom.h"
+
 int NUM_TRIALS = DEFAULT_NUM_TRIALS;
 int nThreads = 1;
 int nSwaptions = 1;
@@ -282,6 +284,7 @@ int main(int argc, char *argv[])
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_begin();
 #endif
+  riscv_roi_begin();
 
 #ifdef ENABLE_THREADS
 
@@ -311,6 +314,7 @@ int main(int argc, char *argv[])
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_end();
 #endif
+  riscv_roi_end();
 
         for (i = 0; i < nSwaptions; i++) {
           fprintf(stderr,"Swaption %d: [SwaptionPrice: %.10lf StdError: %.10lf] \n", 

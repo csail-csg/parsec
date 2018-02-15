@@ -6,6 +6,7 @@ parsec_param = {}
 # by thread num
 # show_res: command to show the results (for different input size)
 
+'''
 parsec_param['blackscholes'] = {
     'dir': 'pkgs/apps',
     'run_args': {
@@ -53,6 +54,24 @@ parsec_param['fluidanimate'] = {
         'simlarge' : 'du -sh out.fluid',
     },
 }
+'''
+
+parsec_param['swaptions'] = {
+    'dir': 'pkgs/apps',
+    'run_args': {
+        'simdev'   : '-ns 16 -sm 50    -nt %s', # change 3 to 16, enable 8 threads
+        'simsmall' : '-ns 16 -sm 10000 -nt %s',
+        'simmedium': '-ns 32 -sm 20000 -nt %s',
+        'simlarge' : '-ns 64 -sm 40000 -nt %s',
+    },
+    'show_res': {
+        'simdev'   : '',
+        'simsmall' : '',
+        'simmedium': '',
+        'simlarge' : '',
+    },
+}
+
 
 
 '''
@@ -89,14 +108,6 @@ parsec3_param['freqmine'] = {
         'small'  : 'kosarak_250k.dat 220 freqmine.out %s' ,
         'medium' : 'kosarak_500k.dat 410 freqmine.out %s' ,
         'large'  : 'kosarak_990k.dat 790 freqmine.out %s' ,
-        }
-
-parsec3_param['swaptions'] = {
-        'dir'    : 'pkgs/apps',
-        'dev'    : '-ns 16 -sm 50 -nt %s'    , # change 3 to 16, enable 8 threads
-        'small'  : '-ns 16 -sm 5000 -nt %s'  ,
-        'medium' : '-ns 32 -sm 10000 -nt %s' ,
-        'large'  : '-ns 64 -sm 20000 -nt %s' ,
         }
 
 parsec3_param['vips'] = {
