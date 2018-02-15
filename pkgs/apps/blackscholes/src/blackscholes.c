@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+#include "riscv_custom.h"
 
 #ifdef ENABLE_PARSEC_HOOKS
 #include <hooks.h>
@@ -418,6 +419,7 @@ int main (int argc, char **argv)
 #ifdef ENABLE_PARSEC_HOOKS
     __parsec_roi_begin();
 #endif
+    riscv_roi_begin();
 
 #ifdef ENABLE_THREADS
 #ifdef WIN32
@@ -468,6 +470,7 @@ int main (int argc, char **argv)
 #ifdef ENABLE_PARSEC_HOOKS
     __parsec_roi_end();
 #endif
+    riscv_roi_end();
 
     //Write prices to output file
     file = fopen(outputFile, "w");
