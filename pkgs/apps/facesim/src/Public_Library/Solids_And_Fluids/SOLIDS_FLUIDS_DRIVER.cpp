@@ -9,6 +9,8 @@
 #ifdef ENABLE_PARSEC_HOOKS
 #include <hooks.h>
 #endif
+#include "riscv_custom.h"
+
 using namespace PhysBAM;
 //#####################################################################
 // Function Execute_Main_Program
@@ -23,10 +25,14 @@ Execute_Main_Program()
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_begin();
 #endif
+  riscv_roi_begin();
+
 	Simulate_To_Frame (example.last_frame);
+
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_end();
 #endif
+  riscv_roi_end();
 
 	//Always write last frame for verification purposes
 	if (!example.write_output_files && !example.write_substeps) Write_Output_Files (example.last_frame);

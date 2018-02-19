@@ -6,7 +6,6 @@ parsec_param = {}
 # by thread num
 # show_res: command to show the results (for different input size)
 
-'''
 parsec_param['blackscholes'] = {
     'dir': 'pkgs/apps',
     'run_args': {
@@ -54,7 +53,6 @@ parsec_param['fluidanimate'] = {
         'simlarge' : 'du -sh out.fluid',
     },
 }
-'''
 
 parsec_param['swaptions'] = {
     'dir': 'pkgs/apps',
@@ -71,7 +69,6 @@ parsec_param['swaptions'] = {
         'simlarge' : '',
     },
 }
-
 
 
 '''
