@@ -18,7 +18,7 @@
 build_deps=""
 
 # Environment to use for configure script and Makefile
-build_env="CXXFLAGS=\"${CXXFLAGS} -fexceptions\""
+build_env="CXXFLAGS=\"${CXXFLAGS} -std=c++03 -fexceptions\""
 
 # Whether the build system supports only in-place compilation.
 # If TRUE, then all sources will be copied to the build directory before we
@@ -27,5 +27,5 @@ build_env="CXXFLAGS=\"${CXXFLAGS} -fexceptions\""
 build_inplace="FALSE"
 
 # Arguments to pass to the configure script, if it exists
-build_conf="--enable-threads --disable-openmp --disable-tbb"
+build_conf="--enable-threads --disable-openmp --disable-tbb --host=riscv64-unknown-linux-gnu"
 
