@@ -15,15 +15,16 @@
 
 
 # Package dependencies
-case `arch` in
-    i*86|x86_64)
-	build_deps="yasm"
-    ;;
-    
-    *)
-	build_deps=""
-    ;;
-esac
+# case `arch` in
+#     i*86|x86_64)
+# 	build_deps="yasm"
+#     ;;
+#     
+#     *)
+# 	build_deps=""
+#     ;;
+# esac
+build_deps=""
 
 # Environment to use for configure script and Makefile
 build_env="PATH=\"${PARSECDIR}/pkgs/tools/yasm/inst/${PARSECPLAT}/bin:${PATH}\""
@@ -35,5 +36,5 @@ build_env="PATH=\"${PARSECDIR}/pkgs/tools/yasm/inst/${PARSECPLAT}/bin:${PATH}\""
 build_inplace="TRUE"
 
 # Arguments to pass to the configure script, if it exists
-build_conf="--enable-pthread --extra-asflags=\"${ASFLAGS}\" --extra-cflags=\"${CFLAGS}\" --extra-ldflags=\"${LDFLAGS} ${LIBS}\""
+build_conf="--enable-pthread --extra-asflags=\"${ASFLAGS}\" --extra-cflags=\"${CFLAGS}\" --extra-ldflags=\"${LDFLAGS} ${LIBS}\" --host=riscv64-unknown-linux-gnu"
 
