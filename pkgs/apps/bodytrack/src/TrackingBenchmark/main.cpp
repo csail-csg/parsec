@@ -31,6 +31,7 @@
 #include <sstream>
 #include <fstream>
 #include <iomanip>
+#include "riscv_custom.h"
 
 //Add defines USE_OPENMP, USE_THREADS or USE_TBB for threaded versions if not using config file (Windows).
 //#define USE_OPENMP
@@ -250,6 +251,8 @@ int mainPthreads(string path, int cameras, int frames, int particles, int layers
 #if defined(ENABLE_PARSEC_HOOKS)
         __parsec_roi_begin();
 #endif
+    riscv_roi_begin();
+
 	for(int i = 0; i < frames; i++)														//process each set of frames
 	{	cout << "Processing frame " << i << endl;
 		if(!pf.Update((float)i))														//Run particle filter step
@@ -264,6 +267,8 @@ int mainPthreads(string path, int cameras, int frames, int particles, int layers
 	}
 	model.close();
 	workers.JoinAll();
+
+    riscv_roi_end();
 #if defined(ENABLE_PARSEC_HOOKS)
         __parsec_roi_end();
 #endif

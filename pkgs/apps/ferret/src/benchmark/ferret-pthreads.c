@@ -32,6 +32,7 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #include <../image/image.h>
 #include "tpool.h"
 #include "queue.h"
+#include "riscv_custom.h"
 
 #ifdef ENABLE_PARSEC_HOOKS
 #include <hooks.h>
@@ -547,6 +548,8 @@ int main (int argc, char *argv[])
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_begin();
 #endif
+    riscv_roi_begin();
+
 	p_load = tpool_create(t_load_desc, NTHREAD_LOAD);
 	p_seg = tpool_create(t_seg_desc, NTHREAD_SEG);
 	p_extract = tpool_create(t_extract_desc, NTHREAD_EXTRACT);
@@ -561,6 +564,7 @@ int main (int argc, char *argv[])
 	tpool_join(p_seg, NULL);
 	tpool_join(p_load, NULL);
 
+    riscv_roi_end();
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_end();
 #endif

@@ -23,6 +23,7 @@
 
 #include <stdlib.h>
 #include <math.h>
+#include "riscv_custom.h"
 
 #include <signal.h>
 #define _GNU_SOURCE
@@ -851,6 +852,7 @@ static int  Encode( x264_param_t *param, cli_opt_t *opt )
 #ifdef ENABLE_PARSEC_HOOKS
     __parsec_roi_begin();
 #endif
+    riscv_roi_begin();
 
     /* Encode frames */
     for( i_frame = 0, i_file = 0; b_ctrl_c == 0 && (i_frame < i_frame_total || i_frame_total == 0); )
@@ -901,6 +903,7 @@ static int  Encode( x264_param_t *param, cli_opt_t *opt )
         i_frame_size = Encode_frame( h, opt->hout, NULL );
     } while( i_frame_size );
 
+    riscv_roi_end();
 #ifdef ENABLE_PARSEC_HOOKS
     __parsec_roi_end();
 #endif

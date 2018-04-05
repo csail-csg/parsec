@@ -70,14 +70,13 @@ parsec_param['swaptions'] = {
     },
 }
 
-parsec_param['bodytrack'] = {
+parsec_param['freqmine'] = {
     'dir': 'pkgs/apps',
     'run_args': {
-        # we use posix thread model (input arg = 2)
-        'simdev'    : 'sequenceB_1 4 1 100  3 2 %s',
-        'simsmall'  : 'sequenceB_1 4 1 1000 5 2 %s',
-        'simmedium' : 'sequenceB_2 4 2 2000 5 2 %s',
-        'simlarge'  : 'sequenceB_4 4 4 4000 5 2 %s',
+        'simdev'    : 'T10I4D100K_1k.dat  3' ,
+        'simsmall'  : 'kosarak_250k.dat 220' ,
+        'simmedium' : 'kosarak_500k.dat 410' ,
+        'simlarge'  : 'kosarak_990k.dat 790' ,
     },
     'show_res': {
         'simdev'   : '',
@@ -161,14 +160,22 @@ parsec_param['canneal'] = {
 }
 
 '''
-parsec3_param['freqmine'] = {
-        'dir'    : 'pkgs/apps',
-        # freqmine.out will be removed in program
-        'dev'    : 'T10I4D100K_1k.dat 3 freqmine.out %s'  ,
-        'small'  : 'kosarak_250k.dat 220 freqmine.out %s' ,
-        'medium' : 'kosarak_500k.dat 410 freqmine.out %s' ,
-        'large'  : 'kosarak_990k.dat 790 freqmine.out %s' ,
-        }
+parsec_param['bodytrack'] = {
+    'dir': 'pkgs/apps',
+    'run_args': {
+        # we use posix thread model (input arg = 2)
+        'simdev'    : 'sequenceB_1 4 1 100  3 2 %s',
+        'simsmall'  : 'sequenceB_1 4 1 1000 5 2 %s',
+        'simmedium' : 'sequenceB_2 4 2 2000 5 2 %s',
+        'simlarge'  : 'sequenceB_4 4 4 4000 5 2 %s',
+    },
+    'show_res': {
+        'simdev'   : '',
+        'simsmall' : '',
+        'simmedium': '',
+        'simlarge' : '',
+    },
+}
 
 parsec3_param['vips'] = {
         'dir'    : 'pkgs/apps',

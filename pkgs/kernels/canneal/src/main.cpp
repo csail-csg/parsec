@@ -33,6 +33,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <vector>
+#include "riscv_custom.h"
 
 #ifdef ENABLE_THREADS
 #include <pthread.h>
@@ -109,6 +110,8 @@ int main (int argc, char * const argv[]) {
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_begin();
 #endif
+    riscv_roi_begin();
+
 #ifdef ENABLE_THREADS
 	std::vector<pthread_t> threads(num_threads);
 	void* thread_in = static_cast<void*>(&a_thread);
@@ -121,6 +124,8 @@ int main (int argc, char * const argv[]) {
 #else
 	a_thread.Run();
 #endif
+
+    riscv_roi_end();
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_end();
 #endif
