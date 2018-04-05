@@ -74,10 +74,10 @@ parsec_param['bodytrack'] = {
     'dir': 'pkgs/apps',
     'run_args': {
         # we use posix thread model (input arg = 2)
-        'dev'    : 'sequenceB_1 4 1 100  3 2 %s',
-        'small'  : 'sequenceB_1 4 1 1000 5 2 %s',
-        'medium' : 'sequenceB_2 4 2 2000 5 2 %s',
-        'large'  : 'sequenceB_4 4 4 4000 5 2 %s',
+        'simdev'    : 'sequenceB_1 4 1 100  3 2 %s',
+        'simsmall'  : 'sequenceB_1 4 1 1000 5 2 %s',
+        'simmedium' : 'sequenceB_2 4 2 2000 5 2 %s',
+        'simlarge'  : 'sequenceB_4 4 4 4000 5 2 %s',
     },
     'show_res': {
         'simdev'   : '',
@@ -91,10 +91,10 @@ parsec_param['facesim'] = {
     'dir': 'pkgs/apps',
     'run_args': {
         # all input sizes are the same
-        'dev'    : '-timing -threads %s',
-        'small'  : '-timing -threads %s',
-        'medium' : '-timing -threads %s',
-        'large'  : '-timing -threads %s',
+        'simdev'    : '-timing -threads %s',
+        'simsmall'  : '-timing -threads %s',
+        'simmedium' : '-timing -threads %s',
+        'simlarge'  : '-timing -threads %s',
     },
     'show_res': {
         'simdev'   : 'ls run/Storytelling/output',
@@ -104,40 +104,37 @@ parsec_param['facesim'] = {
     },
 }
 
-##
-
 parsec_param['ferret'] = {
     'dir': 'pkgs/apps',
     'run_args': {
-        'dev'    : 'corel lsh queries 5 5 %s ferret_dev.out'      ,
-        'small'  : 'corel lsh queries 10 20 %s ferret_small.out'  ,
-        'medium' : 'corel lsh queries 10 20 %s ferret_medium.out' ,
-        'large'  : 'corel lsh queries 10 20 %s ferret_large.out'  ,
-        }
+        'simdev'    : 'corel lsh queries 5   5 %s out.txt',
+        'simsmall'  : 'corel lsh queries 10 20 %s out.txt',
+        'simmedium' : 'corel lsh queries 10 20 %s out.txt',
+        'simlarge'  : 'corel lsh queries 10 20 %s out.txt',
     },
     'show_res': {
-        'simdev'   : '',
-        'simsmall' : '',
-        'simmedium': '',
-        'simlarge' : '',
+        'simdev'   : 'cat out.txt',
+        'simsmall' : 'cat out.txt',
+        'simmedium': 'cat out.txt',
+        'simlarge' : 'cat out.txt',
     },
 }
 
 parsec_param['x264'] = {
-        'dir': 'pkgs/apps',
+    'dir': 'pkgs/apps',
     'run_args': {
-        'dev'    : ('--quiet --qp 20 --partitions b8x8,i4x4 --ref 5 --direct auto --b-pyramid ' +
-                    '--weightb --mixed-refs --no-fast-pskip --me umh --subme 7 --analyse b8x8,i4x4 ' +
-                    '--threads %s -o x264_dev4.264 eledream_64x36_3.y4m')      ,
-        'small'  : ('--quiet --qp 20 --partitions b8x8,i4x4 --ref 5 --direct auto --b-pyramid ' +
-                    '--weightb --mixed-refs --no-fast-pskip --me umh --subme 7 --analyse b8x8,i4x4 ' +
-                    '--threads %s -o x264_small.264 eledream_640x360_8.y4m')   ,
-        'medium' : ('--quiet --qp 20 --partitions b8x8,i4x4 --ref 5 --direct auto --b-pyramid ' +
-                    '--weightb --mixed-refs --no-fast-pskip --me umh --subme 7 --analyse b8x8,i4x4 ' +
-                    '--threads %s -o x264_medium.264 eledream_640x360_32.y4m') ,
-        'large'  : ('--quiet --qp 20 --partitions b8x8,i4x4 --ref 5 --direct auto --b-pyramid ' +
-                    '--weightb --mixed-refs --no-fast-pskip --me umh --subme 7 --analyse b8x8,i4x4 ' +
-                    '--threads %s -o x264_large.264 eledream_640x360_128.y4m') ,
+        'simdev'    : ('--quiet --qp 20 --partitions b8x8,i4x4 --ref 5 --direct auto --b-pyramid ' +
+                       '--weightb --mixed-refs --no-fast-pskip --me umh --subme 7 --analyse b8x8,i4x4 ' +
+                       '--threads %s -o x264_dev4.264 eledream_64x36_3.y4m')      ,
+        'simsmall'  : ('--quiet --qp 20 --partitions b8x8,i4x4 --ref 5 --direct auto --b-pyramid ' +
+                       '--weightb --mixed-refs --no-fast-pskip --me umh --subme 7 --analyse b8x8,i4x4 ' +
+                       '--threads %s -o x264_small.264 eledream_640x360_8.y4m')   ,
+        'simmedium' : ('--quiet --qp 20 --partitions b8x8,i4x4 --ref 5 --direct auto --b-pyramid ' +
+                       '--weightb --mixed-refs --no-fast-pskip --me umh --subme 7 --analyse b8x8,i4x4 ' +
+                       '--threads %s -o x264_medium.264 eledream_640x360_32.y4m') ,
+        'simlarge'  : ('--quiet --qp 20 --partitions b8x8,i4x4 --ref 5 --direct auto --b-pyramid ' +
+                       '--weightb --mixed-refs --no-fast-pskip --me umh --subme 7 --analyse b8x8,i4x4 ' +
+                       '--threads %s -o x264_large.264 eledream_640x360_128.y4m') ,
     },
     'show_res': {
         'simdev'   : '',
@@ -147,6 +144,21 @@ parsec_param['x264'] = {
     },
 }
 
+parsec_param['canneal'] = {
+    'dir': 'pkgs/kernels',
+    'run_args': {
+        'simdev'   : '%s 100   300  100.nets    2',
+        'simsmall' : '%s 10000 2000 100000.nets 32',
+        'simmedium': '%s 15000 2000 200000.nets 64',
+        'simlarge' : '%s 15000 2000 400000.nets 128',
+    },
+    'show_res': {
+        'simdev'   : '',
+        'simsmall' : '',
+        'simmedium': '',
+        'simlarge' : '',
+    },
+}
 
 '''
 parsec3_param['freqmine'] = {
