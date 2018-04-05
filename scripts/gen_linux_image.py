@@ -34,7 +34,7 @@ test_dir = os.path.join(out_dir, 'test') # build initramfs for this benchmark
 
 # parsec
 for bench, param in parsec_param.iteritems():
-    for size in ['simsmall', 'simlarge']:
+    for size in ['simsmall', 'simmedium', 'simlarge']:
         print ''
         print '========================================='
         print 'Generating parsec benchmark {} size {} ...'.format(bench, size)
