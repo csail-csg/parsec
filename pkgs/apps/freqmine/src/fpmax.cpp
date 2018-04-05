@@ -49,6 +49,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
 #include <time.h>
 #include <sys/time.h>
 #include "common.h"
+#include "riscv_custom.h"
 
 using namespace std;
 
@@ -148,6 +149,8 @@ int main(int argc, char **argv)
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_begin();
 #endif
+    riscv_roi_begin();
+
 	fptree -> scan1_DB(fdat);
 	wtime(&tdatap);
 
@@ -181,6 +184,8 @@ int main(int argc, char **argv)
 	}
 
 	fptree->FP_growth_first(fout);
+
+    riscv_roi_end();
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_end();
 #endif

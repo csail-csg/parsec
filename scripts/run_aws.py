@@ -54,7 +54,7 @@ if len(ip_addrs) < len(benchmarks):
 # run the benchmarks
 proc_shell_cmd = ("'cd test; ls; " +
                   'echo ===Start===; ' +
-                  './run.sh ' + args.thread + '; ' +
+                  './run.sh ' + str(args.thread) + '; ' +
                   'echo ===End===; ' +
                   'ls; ./show.sh; ' +
                   "cd; ./terminate'")
@@ -70,6 +70,7 @@ for i, bench_list in enumerate(benchmarks):
                     'cd ' + os.path.join(args.out_dir, bench) + '; ' +
                     'sudo fpga-load-local-image -S 0 -I ' + args.agfi + '; ' +
                     args.exe + ' --just-run' +
+                    ' --core-num ' + str(args.thread) +
                     ' --mem-size ' + str(args.mem_size) +
                     ' --deadlock-check-after 10000000000' +
                     ' --shell-cmd ' + proc_shell_cmd + ' ' + str(args.delay) +
