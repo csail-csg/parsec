@@ -97,7 +97,11 @@
 #include <cassert>
 
 #ifdef ENABLE_THREADS
+#ifdef __riscv
+#include "atomic/riscv_atomic.h"
+#else
 #include "atomic/atomic.h"
+#endif
 #endif
 
 
