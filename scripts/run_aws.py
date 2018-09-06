@@ -21,6 +21,8 @@ parser.add_argument('--input', required = True,
                     choices = ['simsmall', 'simmedium', 'simlarge'])
 parser.add_argument('--thread', required = True,
                     metavar = 'THREAD_NUM', dest = 'thread')
+parser.add_argument('--core', required = False, default = 4,
+                    metavar = 'CORE_NUM', dest = 'core')
 parser.add_argument('--mem', required = False,
                     metavar = 'MEM_SIZE_MB', dest = 'mem_size', default = 2048)
 # AWS fpga image global id, e.g., --agfi agfi-XXX
@@ -34,13 +36,10 @@ parser.add_argument('--delay', required = False,
 args = parser.parse_args()
 
 benchmarks = [
-    ['blackscholes'],
-    ['facesim'],
-    ['ferret'],
-    ['fluidanimate'],
-    ['swaptions'],
+    ['swaptions', 'fluidanimate'],
     ['freqmine'],
-    ['streamcluster'],
+    ['ferret', 'streamcluster'],
+    ['blackscholes', 'facesim'],
 ]
 
 ip_addrs = []
@@ -65,14 +64,14 @@ for i, bench_list in enumerate(benchmarks):
     aws_cmd = 'cd ' + args.riscy_dir + '; source setup.sh; '
     for bench in bench_list:
         bbl_path = os.path.join(args.bbl_dir,
-                                'bbl_spec_{}_{}'.format(bench, args.input_size))
+                                'bbl_parsec_{}_{}'.format(bench, args.input_size))
         aws_cmd += ('mkdir -p ' + os.path.join(args.out_dir, bench) + '; ' +
                     'cd ' + os.path.join(args.out_dir, bench) + '; ' +
                     'sudo fpga-load-local-image -S 0 -I ' + args.agfi + '; ' +
                     args.exe + ' --just-run' +
-                    ' --core-num ' + str(args.thread) +
+                    ' --core-num ' + str(args.core) +
                     ' --mem-size ' + str(args.mem_size) +
-                    ' --deadlock-check-after 10000000000' +
+                    ' --ignore-user-stucks 100000' +
                     ' --shell-cmd ' + proc_shell_cmd + ' ' + str(args.delay) +
                     ' --perf-file ' + os.path.join(bench + '.perf') +
                     ' -- ' + bbl_path +
@@ -83,4 +82,4 @@ for i, bench_list in enumerate(benchmarks):
                'ubuntu@{} '.format(ip_addrs[i]) +
                '"screen -dmS ' + '.'.join(bench_list) + ' bash -c \\"' + aws_cmd + '\\""')
     print ssh_cmd
-    #subprocess.check_call(ssh_cmd, shell = True)
+    subprocess.check_call(ssh_cmd, shell = True)

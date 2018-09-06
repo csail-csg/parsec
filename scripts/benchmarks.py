@@ -96,10 +96,10 @@ parsec_param['facesim'] = {
         'simlarge'  : '-timing -threads %s',
     },
     'show_res': {
-        'simdev'   : 'ls run/Storytelling/output',
-        'simsmall' : 'ls run/Storytelling/output',
-        'simmedium': 'ls run/Storytelling/output',
-        'simlarge' : 'ls run/Storytelling/output',
+        'simdev'   : 'ls Storytelling/output',
+        'simsmall' : 'ls Storytelling/output',
+        'simmedium': 'ls Storytelling/output',
+        'simlarge' : 'ls Storytelling/output',
     },
 }
 
@@ -119,6 +119,7 @@ parsec_param['ferret'] = {
     },
 }
 
+'''
 parsec_param['x264'] = {
     'dir': 'pkgs/apps',
     'run_args': {
@@ -159,7 +160,6 @@ parsec_param['canneal'] = {
     },
 }
 
-'''
 parsec_param['bodytrack'] = {
     'dir': 'pkgs/apps',
     'run_args': {
@@ -185,8 +185,7 @@ parsec3_param['vips'] = {
         'medium' : 'im_benchmark vulture_2336x2336.v vips_medium.v %s'    ,
         'large'  : 'im_benchmark bigben_2662x5500.v vips_large.v %s'      ,
         }
-
-        '''
+'''
 
 # parameter to run SPLASH2x
 splash_param = {}
