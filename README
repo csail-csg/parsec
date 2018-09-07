@@ -1,3 +1,45 @@
+This repo is a fork of the original PARSEC 3.0 benchmark suite at
+http://parsec.cs.princeton.edu/parsec3-doc.htm. The major change is to cross
+compile several PARSEC benchmarks to RISC-V.
+
+This repo is meant to be used for generating PARSEC benchmarks for the RISC-V
+OOO processor at https://github.com/csail-csg/riscy-OOO. Therefore, before
+using this repo, please make sure that the setup.sh file in the riscy-OOO repo
+has been sourced (so environmental variables like $RISCY_HOME has been setup).
+
+To get started, first clone the repo, and download the input data set.
+
+    $ cd <place you want to put this repo>
+    $ git clone https://github.com/csail-csg/parsec.git
+    $ wget http://parsec.cs.princeton.edu/download/3.0/parsec-3.0-input-sim.tar.gz
+    $ tar -zxf parsec-3.0-input-sim.tar.gz -C parsec
+    $ cd parsec
+    $ source env.sh
+
+Cross compile the benchmarks. We have successfully compiled blackscholes,
+ferret, facesim, freqmine, swaptions, streamcluster and fluidanimate.
+
+    $ parsecmgmt -a build -p blackscholes
+    $ parsecmgmt -a build -p ferret
+    $ parsecmgmt -a build -p facesim
+    $ parsecmgmt -a build -p freqmine
+    $ parsecmgmt -a build -p swaptions
+    $ parsecmgmt -a build -p streamcluster
+    $ parsecmgmt -a build -p fluidanimate
+
+Building RISC-V Linux images (BBLs) for each benchmark and each input size
+(simsmall, simmedium and simlarge).
+
+    $ mkdir images
+    $ ./scripts/gen_linux_image.py --outdir ./images --jobs 20 # use 20 threads when compiling Linux
+
+The Linux images (BBLs) will be in folder ./images.
+
+Below is the original README of PARSEC benchmark suite.
+
+------------------------------------------------------------------------------
+
+
 PARSEC Benchmark Suite 3.0
 ==========================
 
