@@ -125,16 +125,16 @@ parsec_param['x264'] = {
     'run_args': {
         'simdev'    : ('--quiet --qp 20 --partitions b8x8,i4x4 --ref 5 --direct auto --b-pyramid ' +
                        '--weightb --mixed-refs --no-fast-pskip --me umh --subme 7 --analyse b8x8,i4x4 ' +
-                       '--threads %s -o x264_dev4.264 eledream_64x36_3.y4m')      ,
+                       '--threads %s -o eledream.264 eledream_64x36_3.y4m')      ,
         'simsmall'  : ('--quiet --qp 20 --partitions b8x8,i4x4 --ref 5 --direct auto --b-pyramid ' +
                        '--weightb --mixed-refs --no-fast-pskip --me umh --subme 7 --analyse b8x8,i4x4 ' +
-                       '--threads %s -o x264_small.264 eledream_640x360_8.y4m')   ,
+                       '--threads %s -o eledream.264 eledream_640x360_8.y4m')   ,
         'simmedium' : ('--quiet --qp 20 --partitions b8x8,i4x4 --ref 5 --direct auto --b-pyramid ' +
                        '--weightb --mixed-refs --no-fast-pskip --me umh --subme 7 --analyse b8x8,i4x4 ' +
-                       '--threads %s -o x264_medium.264 eledream_640x360_32.y4m') ,
+                       '--threads %s -o eledream.264 eledream_640x360_32.y4m') ,
         'simlarge'  : ('--quiet --qp 20 --partitions b8x8,i4x4 --ref 5 --direct auto --b-pyramid ' +
                        '--weightb --mixed-refs --no-fast-pskip --me umh --subme 7 --analyse b8x8,i4x4 ' +
-                       '--threads %s -o x264_large.264 eledream_640x360_128.y4m') ,
+                       '--threads %s -o eledream.264 eledream_640x360_128.y4m') ,
     },
     'show_res': {
         'simdev'   : '',

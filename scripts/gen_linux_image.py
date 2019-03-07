@@ -10,6 +10,8 @@ from benchmarks import splash_param
 parser = argparse.ArgumentParser()
 parser.add_argument('--outdir', dest = 'out_dir', required = True)
 parser.add_argument('--jobs', dest = 'jobs', required = False, default = 1)
+parser.add_argument('--depld', dest = 'depld', action = 'store_true',
+                    help = 'add fence between dependent loads')
 args = parser.parse_args()
 
 # riscy dirs
@@ -89,9 +91,12 @@ for bench, param in parsec_param.iteritems():
         os.chmod(show_sh, int('0777', 8))
 
         # compile and copy linux (bbl)
-        subprocess.check_call([build_linux_script,
-                               '--jobs', str(args.jobs),
-                               '--testdir', test_dir])
+        cmd = [build_linux_script,
+               '--jobs', str(args.jobs),
+               '--testdir', test_dir]
+        if args.depld:
+            cmd.append('--depld')
+        subprocess.check_call(cmd)
         shutil.copy(bbl_path,
                     os.path.join(out_dir,
                                  '_'.join(['bbl', 'parsec', bench, size])))
