@@ -13,60 +13,68 @@ parsec_param['blackscholes'] = {
         'simsmall' : '%s in_4K.txt  out.txt',
         'simmedium': '%s in_16K.txt out.txt',
         'simlarge' : '%s in_64K.txt out.txt',
+        'native'   : '%s in_10M.txt out.txt',
     },
     'show_res': {
         'simdev'   : 'wc -l out.txt; head out.txt; tail out.txt',
         'simsmall' : 'wc -l out.txt; head out.txt; tail out.txt',
         'simmedium': 'wc -l out.txt; head out.txt; tail out.txt',
         'simlarge' : 'wc -l out.txt; head out.txt; tail out.txt',
+        'native'   : 'wc -l out.txt; head out.txt; tail out.txt',
     },
 }
 
 parsec_param['streamcluster'] = {
     'dir': 'pkgs/kernels',
     'run_args': {
-        'simdev'   : '3  10 3   16    16    10   none out.txt %s',
-        'simsmall' : '10 20 32  4096  4096  1000 none out.txt %s',
-        'simmedium': '10 20 64  8192  8192  1000 none out.txt %s',
-        'simlarge' : '10 20 128 16384 16384 1000 none out.txt %s',
+        'simdev'   : '3  10 3   16      16     10   none out.txt %s',
+        'simsmall' : '10 20 32  4096    4096   1000 none out.txt %s',
+        'simmedium': '10 20 64  8192    8192   1000 none out.txt %s',
+        'simlarge' : '10 20 128 16384   16384  1000 none out.txt %s',
+        'native'   : '10 20 128 1000000 200000 5000 none out.txt %s',
     },
     'show_res': {
         'simdev'   : 'wc -l out.txt; cat out.txt',
         'simsmall' : 'wc -l out.txt; cat out.txt',
         'simmedium': 'wc -l out.txt; cat out.txt',
         'simlarge' : 'wc -l out.txt; cat out.txt',
+        'native'   : 'wc -l out.txt; cat out.txt',
     },
 }
 
 parsec_param['fluidanimate'] = {
     'dir': 'pkgs/apps',
     'run_args': {
-        'simdev'   : '%s 3 in_15K.fluid  out.fluid',
-        'simsmall' : '%s 5 in_35K.fluid  out.fluid',
-        'simmedium': '%s 5 in_100K.fluid out.fluid',
-        'simlarge' : '%s 5 in_300K.fluid out.fluid',
+        'simdev'   : '%s 3   in_15K.fluid  out.fluid',
+        'simsmall' : '%s 5   in_35K.fluid  out.fluid',
+        'simmedium': '%s 5   in_100K.fluid out.fluid',
+        'simlarge' : '%s 5   in_300K.fluid out.fluid',
+        'native'   : '%s 500 in_500K.fluid out.fluid',
     },
     'show_res': {
         'simdev'   : 'du -sh out.fluid',
         'simsmall' : 'du -sh out.fluid',
         'simmedium': 'du -sh out.fluid',
         'simlarge' : 'du -sh out.fluid',
+        'native'   : 'du -sh out.fluid',
     },
 }
 
 parsec_param['swaptions'] = {
     'dir': 'pkgs/apps',
     'run_args': {
-        'simdev'   : '-ns 16 -sm 50    -nt %s', # change 3 to 16, enable 8 threads
-        'simsmall' : '-ns 16 -sm 10000 -nt %s',
-        'simmedium': '-ns 32 -sm 20000 -nt %s',
-        'simlarge' : '-ns 64 -sm 40000 -nt %s',
+        'simdev'   : '-ns 16  -sm 50      -nt %s', # change 3 to 16, enable 8 threads
+        'simsmall' : '-ns 16  -sm 10000   -nt %s',
+        'simmedium': '-ns 32  -sm 20000   -nt %s',
+        'simlarge' : '-ns 64  -sm 40000   -nt %s',
+        'native'   : '-ns 128 -sm 1000000 -nt %s',
     },
     'show_res': {
         'simdev'   : '',
         'simsmall' : '',
         'simmedium': '',
         'simlarge' : '',
+        'native'   : '',
     },
 }
 
@@ -77,29 +85,33 @@ parsec_param['freqmine'] = {
         'simsmall'  : 'kosarak_250k.dat 220' ,
         'simmedium' : 'kosarak_500k.dat 410' ,
         'simlarge'  : 'kosarak_990k.dat 790' ,
+        'native'    : 'webdocs_250k.dat 11000',
     },
     'show_res': {
         'simdev'   : '',
         'simsmall' : '',
         'simmedium': '',
         'simlarge' : '',
+        'native'   : '',
     },
 }
 
 parsec_param['facesim'] = {
     'dir': 'pkgs/apps',
     'run_args': {
-        # all input sizes are the same
+        # all input sizes are the same except for native
         'simdev'    : '-timing -threads %s',
         'simsmall'  : '-timing -threads %s',
         'simmedium' : '-timing -threads %s',
         'simlarge'  : '-timing -threads %s',
+        'native'    : '-timing -threads %s -lastframe 100',
     },
     'show_res': {
         'simdev'   : 'ls Storytelling/output',
         'simsmall' : 'ls Storytelling/output',
         'simmedium': 'ls Storytelling/output',
         'simlarge' : 'ls Storytelling/output',
+        'native'   : 'ls Storytelling/output',
     },
 }
 
@@ -110,12 +122,14 @@ parsec_param['ferret'] = {
         'simsmall'  : 'corel lsh queries 10 20 %s out.txt',
         'simmedium' : 'corel lsh queries 10 20 %s out.txt',
         'simlarge'  : 'corel lsh queries 10 20 %s out.txt',
+        'native'    : 'corel lsh queries 50 20 %s out.txt',
     },
     'show_res': {
         'simdev'   : 'cat out.txt',
         'simsmall' : 'cat out.txt',
         'simmedium': 'cat out.txt',
         'simlarge' : 'cat out.txt',
+        'native'   : 'cat out.txt',
     },
 }
 

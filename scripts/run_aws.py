@@ -24,7 +24,7 @@ parser.add_argument('--thread', required = True,
 parser.add_argument('--core', required = False, default = 4,
                     metavar = 'CORE_NUM', dest = 'core')
 parser.add_argument('--mem', required = False,
-                    metavar = 'MEM_SIZE_MB', dest = 'mem_size', default = 2048)
+                    metavar = 'MEM_SIZE_MB', dest = 'mem_size', default = 8192)
 # AWS fpga image global id, e.g., --agfi agfi-XXX
 parser.add_argument('--agfi', required = True,
                     metavar = 'agfi-XXX', dest = 'agfi')
