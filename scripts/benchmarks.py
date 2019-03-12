@@ -129,7 +129,7 @@ parsec_param['ferret'] = {
         'simsmall' : 'cat out.txt',
         'simmedium': 'cat out.txt',
         'simlarge' : 'cat out.txt',
-        'native'   : 'cat out.txt',
+        'native'   : 'wc -l out.txt; head out.txt; tail out.txt',
     },
 }
 
