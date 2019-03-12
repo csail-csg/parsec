@@ -13,19 +13,17 @@ parser.add_argument('--exe', required = True,
                     metavar = 'UBUNTU_EXE', dest = 'exe')
 parser.add_argument('--outdir', required = True,
                     metavar = 'OUTPUT_DIR', dest = 'out_dir')
-parser.add_argument('--bbldir', required = False,
-                    metavar = 'BBL_DIR', dest = 'bbl_dir',
-                    default = '/efs/szzhang/run/parsec_bbls')
+parser.add_argument('--bbldir', required = True,
+                    metavar = 'BBL_DIR', dest = 'bbl_dir')
 parser.add_argument('--input', required = True,
                     metavar = 'INPUT_SIZE', dest = 'input_size',
                     choices = ['simsmall', 'simmedium', 'simlarge', 'native'])
 parser.add_argument('--thread', required = True,
                     metavar = 'THREAD_NUM', dest = 'thread')
-parser.add_argument('--core', required = False, default = 4,
+parser.add_argument('--core', required = True,
                     metavar = 'CORE_NUM', dest = 'core')
-parser.add_argument('--rom', required = False,
-                    metavar = 'BOOT_ROM', dest = 'rom',
-                    default = '/efs/szzhang/run/rom/rom_core_4')
+parser.add_argument('--rom', required = True,
+                    metavar = 'BOOT_ROM', dest = 'rom')
 parser.add_argument('--mem', required = False,
                     metavar = 'MEM_SIZE_MB', dest = 'mem_size', default = 8192)
 # AWS fpga image global id, e.g., --agfi agfi-XXX
@@ -75,7 +73,7 @@ for i, bench_list in enumerate(benchmarks):
         aws_cmd += ('mkdir -p ' + os.path.join(args.out_dir, bench) + '; ' +
                     'cd ' + os.path.join(args.out_dir, bench) + '; ' +
                     'sudo fpga-load-local-image -S 0 -I ' + args.agfi + '; ' +
-                    args.exe + ' --just-run' +
+                    args.exe +
                     ' --core-num ' + str(args.core) +
                     ' --mem-size ' + str(args.mem_size) +
                     ' --ignore-user-stucks 100000' +
