@@ -18,11 +18,14 @@ parser.add_argument('--bbldir', required = False,
                     default = '/efs/szzhang/run/parsec_bbls')
 parser.add_argument('--input', required = True,
                     metavar = 'INPUT_SIZE', dest = 'input_size',
-                    choices = ['simsmall', 'simmedium', 'simlarge'])
+                    choices = ['simsmall', 'simmedium', 'simlarge', 'native'])
 parser.add_argument('--thread', required = True,
                     metavar = 'THREAD_NUM', dest = 'thread')
 parser.add_argument('--core', required = False, default = 4,
                     metavar = 'CORE_NUM', dest = 'core')
+parser.add_argument('--rom', required = False,
+                    metavar = 'BOOT_ROM', dest = 'rom',
+                    default = '/efs/szzhang/run/rom/rom_core_4')
 parser.add_argument('--mem', required = False,
                     metavar = 'MEM_SIZE_MB', dest = 'mem_size', default = 8192)
 # AWS fpga image global id, e.g., --agfi agfi-XXX
@@ -36,10 +39,14 @@ parser.add_argument('--delay', required = False,
 args = parser.parse_args()
 
 benchmarks = [
-    ['swaptions', 'fluidanimate'],
+    ['swaptions'],
+    ['fluidanimate'],
     ['freqmine'],
-    ['ferret', 'streamcluster'],
-    ['blackscholes', 'facesim'],
+    ['ferret'],
+    ['streamcluster'],
+    ['blackscholes'],
+    ['facesim'],
+    ['x264'],
 ]
 
 ip_addrs = []
@@ -74,7 +81,8 @@ for i, bench_list in enumerate(benchmarks):
                     ' --ignore-user-stucks 100000' +
                     ' --shell-cmd ' + proc_shell_cmd + ' ' + str(args.delay) +
                     ' --perf-file ' + os.path.join(bench + '.perf') +
-                    ' -- ' + bbl_path +
+                    ' --rom ' + args.rom +
+                    ' --elf ' + bbl_path +
                     ' &> ' + os.path.join(bench + '.out') + '; sleep 20; ');
     aws_cmd += 'sudo shutdown -h now'
     # overall ssh cmd
