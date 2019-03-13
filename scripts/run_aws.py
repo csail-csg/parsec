@@ -56,7 +56,7 @@ if len(ip_addrs) < len(benchmarks):
     raise Exception('Not enough IPs')
 
 # run the benchmarks
-proc_shell_cmd = ("'cd test; ls; " +
+proc_shell_cmd = ("'cd test; ls; cat run.sh; " +
                   'echo ===Start===; ' +
                   './run.sh ' + str(args.thread) + '; ' +
                   'echo ===End===; ' +
