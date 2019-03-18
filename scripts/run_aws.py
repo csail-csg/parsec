@@ -37,13 +37,10 @@ parser.add_argument('--delay', required = False,
 args = parser.parse_args()
 
 benchmarks = [
-    ['swaptions'],
-    ['fluidanimate'],
+    ['swaptions', 'streamcluster'],
+    ['blackscholes', 'fluidanimate'],
+    ['ferret', 'facesim'],
     ['freqmine'],
-    ['ferret'],
-    ['streamcluster'],
-    ['blackscholes'],
-    ['facesim'],
     ['x264'],
 ]
 
