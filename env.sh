@@ -35,7 +35,7 @@ function detect_path {
     # Try to autodetect path by looking at path used to invoke this script
 
     # Try to extract absoute or relative path
-    if [ "${1:0:1}" == "/" ]; then
+    if [[ "${1:0:1}" == "/" ]]; then
       # Absolute path given
       eval xxparsecdirxx=$(${xxDIRNAMExx} $(${xxDIRNAMExx} $1))
       # Check
