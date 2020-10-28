@@ -386,8 +386,13 @@ CHAR	*argv[];
 	 */
 
 	Huniform_defaults();
-	ReadEnvFile(*argv);
-	ReadGeoFile(GeoFileName);
+        char buffer[64];
+        strcpy(buffer, *argv);
+        strcat(buffer, ".env");
+	ReadEnvFile(buffer);
+        strcpy(buffer, *argv);
+        strcat(buffer, ".geo");
+	ReadGeoFile(buffer);
 	OpenFrameBuffer();
 
 

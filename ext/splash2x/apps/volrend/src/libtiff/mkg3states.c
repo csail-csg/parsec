@@ -68,6 +68,7 @@ static char rcsid[] = "$Header: /cvs/bao-parsec/ext/splash2x/apps/volrend/src/li
  * END (from the original source)
  */
 #include <stdio.h>
+#include <stdlib.h>
 #include "prototypes.h"
 
 #ifndef TRUE
