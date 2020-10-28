@@ -18,6 +18,7 @@
 # binaries, then we use that information to define the binary locations.
 # The values for Linux are at the end and also the default values.
 
+
 case "${OSTYPE}" in
 *solaris*)
   # Solaris case
@@ -39,6 +40,10 @@ case "${OSTYPE}" in
 *)
   # Linux + default case
 
+  # FP Quick and dirty hack!
+  RISCY_TOOLS=/opt/riscv
+  # FP Must be indentical to the same variable declared in busybear parsec conf file
+  PARSEC_HOME=/work/petrot/parsec-3.0
   # CC_HOME is installation root of the C compiler
   export CC_HOME="$RISCY_TOOLS"
   # BINUTIL_HOME is installation root of the GNU binutils
@@ -68,10 +73,12 @@ export M4="${GNUTOOL_HOME}/bin/m4"
 export MAKE="${GNUTOOL_HOME}/bin/make"
 
 # Flags for increased portability of binaries
+# FP Quick and dirty hack again!
+RISCY_HOME=${PARSEC_HOME}/pkgs/include
 PORTABILITY_FLAGS="-I${RISCY_HOME}/riscv_custom -static-libgcc -static-libstdc++ -static -Wl,--hash-style=both,--as-needed"
 
 # Arguments to use
-export CFLAGS="-O3 -g -funroll-loops -fprefetch-loop-arrays ${PORTABILITY_FLAGS}"
+export CFLAGS="-O3 -g -funroll-loops ${PORTABILITY_FLAGS}"
 export CXXFLAGS="-O3 -g -funroll-loops -fprefetch-loop-arrays -fpermissive -fno-exceptions ${PORTABILITY_FLAGS}"
 export CPPFLAGS=""
 export CXXCPPFLAGS=""
