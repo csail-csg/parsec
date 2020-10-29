@@ -2,6 +2,10 @@ This repo is a fork of the original PARSEC 3.0 benchmark suite at
 http://parsec.cs.princeton.edu/parsec3-doc.htm. The major change is to cross
 compile several PARSEC benchmarks to RISC-V.
 
+-----------------------------
+Adding two scripts to build and run the parsec subset that works well with busybear linux on riscv64
+-----------------------------
+
 This repo is meant to be used for generating PARSEC benchmarks for the RISC-V
 OOO processor at https://github.com/csail-csg/riscy-OOO. Therefore, before
 using this repo, please make sure that the setup.sh file in the riscy-OOO repo
