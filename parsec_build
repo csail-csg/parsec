@@ -1,0 +1,21 @@
+parsecmgmt -a build -p blackscholes
+parsecmgmt -a build -p bodytrack
+parsecmgmt -a build -p swaptions
+parsecmgmt -a build -p streamcluster
+parsecmgmt -a build -p fluidanimate
+parsecmgmt -a build -p ferret
+parsecmgmt -a build -p freqmine
+parsecmgmt -a build -p splash2x.barnes
+parsecmgmt -a build -p splash2x.fmm
+parsecmgmt -a build -p splash2x.ocean_cp
+parsecmgmt -a build -p splash2x.radiosity
+parsecmgmt -a build -p splash2x.raytrace
+parsecmgmt -a build -p splash2x.water_nsquared
+parsecmgmt -a build -p splash2x.water_spatial
+parsecmgmt -a build -p splash2x.cholesky
+parsecmgmt -a build -p splash2x.fft
+parsecmgmt -a build -p splash2x.radix
+parsecmgmt -a build -p splash2x.raytrace
+parsecmgmt -a build -p splash2x.lu_cb
+parsecmgmt -a build -p splash2x.lu_ncb
+
