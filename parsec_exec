@@ -1,30 +1,62 @@
-# Command lines to launch the small benchmark with our directory organization
-NTHREADS=1
-cat ext/splash2x/apps/barnes/inputs/input.template | sed -e "s/NUMPROCS/${NTHREADS}/" | bin/barnes ${NTHREADS}
-bin/blackscholes ${NTHREADS} pkgs/apps/blackscholes/inputs/in_4K.txt prices.txt
-bin/bodytrack pkgs/apps/bodytrack/inputs/sequenceB_1 4 1 1000 5 0 ${NTHREADS}
-# Next fails because of bad_alloc
-# bin/canneal ${NTHREADS} 10000 2000 100000.nets 32
-bin/cholesky -p${NTHREADS} ext/splash2x/kernels/cholesky/inputs/tk29.O
-# Next fails even without any arguments, segfault
-# bin/facesim -timing -threads ${NTHREADS}
-# Strange, but necessary for it to work, ...
-(cd pkgs/apps/ferret/inputs; ~/bin/ferret corel lsh queries 10 20 ${NTHREADS} output.txt)
-bin/fft -p${NTHREADS} -m20
-bin/fluidanimate ${NTHREADS} 5 pkgs/apps/fluidanimate/inputs/in_35K.fluid out.fluid
-OMP_NUM_THREADS=4 bin/freqmine pkgs/apps/freqmine/inputs/kosarak_250k.dat 220
-bin/lu_cb -p${NTHREADS} -n512 -b16
-bin/lu_ncb -p${NTHREADS} -n512 -b16
-bin/ocean_cp -p${NTHREADS} -n514 -e1e-07 -r20000 -t28800
-# Next one segfaults !
-# bin/ocean_ncp -p${NTHREADS} -n514 -e1e-07 -r20000 -t28800
-bin/radiosity -p${NTHREADS} -bf 1.5e-1 -batch -room
-bin/radix -p${NTHREADS} -r4096 -n4194304 -m2147483647
-# Next OOM!
-# bin/raytrace -p${NTHREADS} -s -a8 ext/splash2x/apps/raytrace/inputs/teapot
-bin/streamcluster 10 20 32 4096 4096 1000 none output.txt ${NTHREADS}
-bin/swaptions -ns 16 -sm 10000 -nt ${NTHREADS}
-(cd ext/splash2x/apps/water_nsquared/inputs; cat input.template | sed  -e "s/NUMPROCS/${NTHREADS}/" | /root/bin/water_nsquared)
-(cd ext/splash2x/apps/water_spatial/inputs; cat input.template | sed  -e "s/NUMPROCS/${NTHREADS}/" | /root/bin/water_spatial)
+#!/bin/ash
+######################################################################################
+# Command lines to launch the SMALL/LARGE benchmarks with our directory organization #
+######################################################################################
 
+if [ -z "$1" ] || [ -z "$2" ]
+then
+    echo "./parsec_exec small|large nthreads"
+	exit 1
+fi
 
+NTHREADS="$2"
+
+if [ "$1" = "small" ]
+then
+	cat ext/splash2x/apps/barnes/inputs/input.template | sed -e "s/NUMPROCS/${NTHREADS}/" | bin/barnes ${NTHREADS}
+	bin/blackscholes ${NTHREADS} pkgs/apps/blackscholes/inputs/in_4K.txt prices.txt
+	bin/bodytrack pkgs/apps/bodytrack/inputs/sequenceB_1 4 1 1000 5 0 ${NTHREADS}
+	# Next fails because of bad_alloc
+	# bin/canneal ${NTHREADS} 10000 2000 100000.nets 32
+	bin/cholesky -p${NTHREADS} ext/splash2x/kernels/cholesky/inputs/tk29.O
+	# Next fails even without any arguments, segfault
+	# bin/facesim -timing -threads ${NTHREADS}
+	# Strange, but necessary for it to work, ...
+	(cd pkgs/apps/ferret/inputs; ~/bin/ferret corel lsh queries 10 20 ${NTHREADS} output.txt)
+	bin/fft -p${NTHREADS} -m20
+	bin/fluidanimate ${NTHREADS} 5 pkgs/apps/fluidanimate/inputs/in_35K.fluid out.fluid
+	OMP_NUM_THREADS=4 bin/freqmine pkgs/apps/freqmine/inputs/kosarak_250k.dat 220
+	bin/lu_cb -p${NTHREADS} -n512 -b16
+	bin/lu_ncb -p${NTHREADS} -n512 -b16
+	bin/ocean_cp -p${NTHREADS} -n514 -e1e-07 -r20000 -t28800
+	# Next one segfaults !
+	# bin/ocean_ncp -p${NTHREADS} -n514 -e1e-07 -r20000 -t28800
+	bin/radiosity -p${NTHREADS} -bf 1.5e-1 -batch -room
+	bin/radix -p${NTHREADS} -r4096 -n4194304 -m2147483647
+	# Next OOM!
+	# bin/raytrace -p${NTHREADS} -s -a8 ext/splash2x/apps/raytrace/inputs/teapot
+	bin/streamcluster 10 20 32 4096 4096 1000 none output.txt ${NTHREADS}
+	bin/swaptions -ns 16 -sm 10000 -nt ${NTHREADS}
+	(cd ext/splash2x/apps/water_nsquared/inputs; cat input.template | sed  -e "s/NUMPROCS/${NTHREADS}/" | /root/bin/water_nsquared)
+	(cd ext/splash2x/apps/water_spatial/inputs; cat input.template | sed  -e "s/NUMPROCS/${NTHREADS}/" | /root/bin/water_spatial)
+elif [ "$1" = "large" ]
+then
+	cat ext/splash2x/apps/barnes/inputs/input.template | sed -e "s/NUMPROCS/${NTHREADS}/" | bin/barnes ${NTHREADS}
+	bin/blackscholes ${NTHREADS} pkgs/apps/blackscholes/inputs/in_64K.txt prices.txt
+	bin/bodytrack pkgs/apps/bodytrack/inputs/sequenceB_4 4 4 4000 5 0 ${NTHREADS}
+	bin/cholesky -p${NTHREADS} ext/splash2x/kernels/cholesky/inputs/tk29.O
+	(cd pkgs/apps/ferret/inputs; ~/bin/ferret corel lsh queries 10 20 ${NTHREADS} output.txt)
+	bin/fft -p${NTHREADS} -m24
+	bin/fluidanimate ${NTHREADS} 5 pkgs/apps/fluidanimate/inputs/in_300K.fluid out.fluid
+	OMP_NUM_THREADS=4 bin/freqmine pkgs/apps/freqmine/inputs/kosarak_990k.dat 790
+	bin/lu_cb -p${NTHREADS} -n2048 -b16
+	bin/lu_ncb -p${NTHREADS} -n2048 -b16
+	bin/ocean_cp -p${NTHREADS} -n2050 -e1e-07 -r20000 -t28800
+	bin/radiosity -p${NTHREADS} -bf 1.5e-3 -batch -room
+	bin/radix -p${NTHREADS} -r4096 -n67108864 -m2147483647
+	bin/streamcluster 10 20 128 16384 16384 1000 none output.txt ${NTHREADS}
+	bin/swaptions -ns 64 -sm 40000 -nt ${NTHREADS}
+	(cd ext/splash2x/apps/water_nsquared/inputs; cat input.template | sed  -e "s/NUMPROCS/${NTHREADS}/" | /root/bin/water_nsquared)
+	(cd ext/splash2x/apps/water_spatial/inputs; cat input.template | sed  -e "s/NUMPROCS/${NTHREADS}/" | /root/bin/water_spatial)
+	(cd ext/splash2x/apps/water_spatial/inputs; cat input.template | sed  -e "s/NUMPROCS/${NTHREADS}/" | /root/bin/water_spatial)
+fi
