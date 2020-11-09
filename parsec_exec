@@ -13,9 +13,9 @@ NTHREADS="$2"
 
 if [ "$1" = "small" ]
 then
-	cat ext/splash2x/apps/barnes/inputs/input.template | sed -e "s/NUMPROCS/${NTHREADS}/" | bin/barnes ${NTHREADS}
+	# cat ext/splash2x/apps/barnes/inputs/input.template | sed -e "s/NUMPROCS/${NTHREADS}/" | bin/barnes ${NTHREADS}
 	bin/blackscholes ${NTHREADS} pkgs/apps/blackscholes/inputs/in_4K.txt prices.txt
-	bin/bodytrack pkgs/apps/bodytrack/inputs/sequenceB_1 4 1 1000 5 0 ${NTHREADS}
+	# bin/bodytrack pkgs/apps/bodytrack/inputs/sequenceB_1 4 1 1000 5 0 ${NTHREADS}
 	# Next fails because of bad_alloc
 	# bin/canneal ${NTHREADS} 10000 2000 100000.nets 32
 	bin/cholesky -p${NTHREADS} ext/splash2x/kernels/cholesky/inputs/tk29.O
@@ -41,9 +41,9 @@ then
 	(cd ext/splash2x/apps/water_spatial/inputs; cat input.template | sed  -e "s/NUMPROCS/${NTHREADS}/" | /root/bin/water_spatial)
 elif [ "$1" = "large" ]
 then
-	cat ext/splash2x/apps/barnes/inputs/input.template | sed -e "s/NUMPROCS/${NTHREADS}/" | bin/barnes ${NTHREADS}
+	# cat ext/splash2x/apps/barnes/inputs/input.template | sed -e "s/NUMPROCS/${NTHREADS}/" | bin/barnes ${NTHREADS}
 	bin/blackscholes ${NTHREADS} pkgs/apps/blackscholes/inputs/in_64K.txt prices.txt
-	bin/bodytrack pkgs/apps/bodytrack/inputs/sequenceB_4 4 4 4000 5 0 ${NTHREADS}
+	# bin/bodytrack pkgs/apps/bodytrack/inputs/sequenceB_4 4 4 4000 5 0 ${NTHREADS}
 	bin/cholesky -p${NTHREADS} ext/splash2x/kernels/cholesky/inputs/tk29.O
 	(cd pkgs/apps/ferret/inputs; ~/bin/ferret corel lsh queries 10 20 ${NTHREADS} output.txt)
 	bin/fft -p${NTHREADS} -m24
