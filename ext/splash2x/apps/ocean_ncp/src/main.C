@@ -32,6 +32,7 @@
 #ifdef ENABLE_PARSEC_HOOKS
 #include <hooks.h>
 #endif
+#include <riscv_custom.h>
 MAIN_ENV
 
 #define DEFAULT_N      258
@@ -452,11 +453,13 @@ int main(int argc, char *argv[])
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_begin();
 #endif
+	riscv_roi_begin();
    CREATE(slave, nprocs);
    WAIT_FOR_END(nprocs);
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_end();
 #endif
+	riscv_roi_end();
    CLOCK(computeend)
 
    printf("\n");

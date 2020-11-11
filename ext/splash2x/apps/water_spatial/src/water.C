@@ -17,6 +17,7 @@
 #ifdef ENABLE_PARSEC_HOOKS
 #include <hooks.h>
 #endif
+#include <riscv_custom.h>
 MAIN_ENV
 
 /*  Usage:   water < infile,
@@ -348,6 +349,7 @@ int main(int argc, char **argv)
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_begin();
 #endif
+	riscv_roi_begin();
     CREATE(WorkStart, NumProcs);
 
     /* macro to make main process wait for all others to finish */
@@ -355,6 +357,7 @@ int main(int argc, char **argv)
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_end();
 #endif
+	riscv_roi_end();
     CLOCK(gl->computeend);
 
     printf("COMPUTESTART (after initialization) = %lu\n",gl->computestart);

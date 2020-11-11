@@ -45,6 +45,7 @@
 #ifdef ENABLE_PARSEC_HOOKS
 #include <hooks.h>
 #endif
+#include <riscv_custom.h>
 MAIN_ENV
 
 #define MAXRAND                         32767.0
@@ -311,11 +312,13 @@ int main(int argc, char *argv[])
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_begin();
 #endif
+	riscv_roi_begin();
   CREATE(SlaveStart, P);
   WAIT_FOR_END(P);
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_end();
 #endif
+	riscv_roi_end();
 
   if (doprint) {
     printf("\nMatrix after decomposition:\n");

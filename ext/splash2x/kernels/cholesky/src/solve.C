@@ -34,6 +34,7 @@
 #ifdef ENABLE_PARSEC_HOOKS
 #include <hooks.h>
 #endif
+#include <riscv_custom.h>
 
 MAIN_ENV
 
@@ -263,6 +264,7 @@ int main(int argc, char *argv[])
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_begin();
 #endif
+	riscv_roi_begin();
 
   CREATE(Go, P);
   WAIT_FOR_END(P);
@@ -270,6 +272,7 @@ int main(int argc, char *argv[])
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_end();
 #endif
+	riscv_roi_end();
 
   printf("%.0f operations for factorization\n", work_tree[M.n]);
 

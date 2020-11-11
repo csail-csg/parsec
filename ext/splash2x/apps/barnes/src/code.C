@@ -68,6 +68,7 @@ Command line options:
 #ifdef ENABLE_PARSEC_HOOKS
 #include <hooks.h>
 #endif
+#include <riscv_custom.h>
 
 MAIN_ENV
 
@@ -279,6 +280,7 @@ int main (int argc, string argv[])
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_begin();
 #endif
+	riscv_roi_begin();
 
    CREATE(SlaveStart, NPROC);
 
@@ -287,6 +289,7 @@ int main (int argc, string argv[])
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_end();
 #endif
+	riscv_roi_end();
 
    CLOCK(Global->computeend);
 

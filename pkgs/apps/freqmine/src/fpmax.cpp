@@ -185,13 +185,13 @@ int main(int argc, char **argv)
 
 	fptree->FP_growth_first(fout);
 
+	if(fout)
+		fout->close();
     riscv_roi_end();
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_end();
 #endif
 	printLen();
-	if(fout)
-		fout->close();
 
 	for (i = 0; i < workingthread; i ++) {
 		delete fp_buf[i];

@@ -83,6 +83,7 @@
 #ifdef ENABLE_PARSEC_HOOKS
 #include <hooks.h>
 #endif
+#include <riscv_custom.h>
 
 #define BASE ((((double) 4) - sqrt((double) 2)) / sqrt((double) 2))
 #define MAX_LINE_SIZE 100
@@ -149,11 +150,13 @@ int main (int argc, char *argv[])
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_begin();
 #endif
+	riscv_roi_begin();
    CREATE(ParallelExecute, Number_Of_Processors);
    WAIT_FOR_END(Number_Of_Processors);
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_end();
 #endif
+	riscv_roi_end();
 
    printf("Finished FMM\n");
    PrintTimes();

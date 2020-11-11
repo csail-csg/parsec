@@ -56,6 +56,7 @@
 #define PI                         3.1416
 #define DEFAULT_M                 10
 #define DEFAULT_P                  1
+#include <riscv_custom.h>
 
 MAIN_ENV
 
@@ -330,6 +331,7 @@ int main(int argc, char *argv[])
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_begin();
 #endif
+	riscv_roi_begin();
 
   CREATE(SlaveStart, P);
   WAIT_FOR_END(P);
@@ -337,6 +339,7 @@ int main(int argc, char *argv[])
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_end();
 #endif
+	riscv_roi_end();
 
   if (doprint) {
     if (test_result) {

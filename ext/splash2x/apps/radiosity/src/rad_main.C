@@ -36,6 +36,7 @@
 #ifdef ENABLE_PARSEC_HOOKS
 #include <hooks.h>
 #endif
+#include <riscv_custom.h>
 MAIN_ENV;
 
 include(radiosity.h)
@@ -150,6 +151,7 @@ static void _init_radavg_tasks(Patch *p, long mode, long process_id);
 static void parse_args(int argc, char *argv[]);
 
 static long dostats = 0;
+riscv_static_roi_decl;
 
 int main(int argc, char *argv[])
 {
@@ -252,11 +254,13 @@ int main(int argc, char *argv[])
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_begin();
 #endif
+	riscv_static_roi_begin();
             CREATE(radiosity, n_processors);
             WAIT_FOR_END(n_processors);
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_end();
 #endif
+	riscv_static_roi_end();
 
             /* Time stamp */
             CLOCK( time_rad_end );
@@ -515,6 +519,7 @@ void start_radiosity(long val)
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_begin();
 #endif
+	riscv_static_roi_begin();
                     CREATE(radiosity, n_processors/* - 1*/);
 
                     /* Decompose model objects into patches and build
@@ -545,6 +550,7 @@ void start_radiosity(long val)
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_end();
 #endif
+	riscv_static_roi_end();
                         state = -1 ;
                 }
 

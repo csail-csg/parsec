@@ -38,6 +38,7 @@
 #ifdef ENABLE_PARSEC_HOOKS
 #include <hooks.h>
 #endif
+#include <riscv_custom.h>
 MAIN_ENV
 
 #include "anl.h"
@@ -61,6 +62,8 @@ long image_len[NI], mask_image_len[NI];
 int  image_length;
 long mask_image_length;
 char filename[FILENAME_STRING_SIZE];
+
+riscv_static_roi_decl;
 
 void mclock(long stoptime, long starttime, long *exectime)
 {
@@ -107,6 +110,7 @@ int main(int argc, char *argv[])
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_end();
 #endif
+	riscv_static_roi_end();
   }
 
   MAIN_END;
@@ -241,6 +245,7 @@ void Frame()
 #ifdef ENABLE_PARSEC_HOOKS
 	__parsec_roi_begin();
 #endif
+	riscv_static_roi_begin();
   CREATE(Render_Loop, num_nodes);
 }
 
