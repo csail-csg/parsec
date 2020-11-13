@@ -13,7 +13,7 @@ if [ "$1" = "smp_fix" ]
 then
 	if [ "$2" = "small" ]
 	then
-		for NTHREADS in 1 2 4 8 16
+		for NTHREADS in 1 2 4 8 16 32 64 128
 		do
 			cat ext/splash2x/apps/barnes/inputs/input.template | sed -e "s/NUMPROCS/${NTHREADS}/" | time -p bin/barnes ${NTHREADS}
 			time -p bin/blackscholes ${NTHREADS} pkgs/apps/blackscholes/inputs/in_4K.txt prices.tx
@@ -28,14 +28,13 @@ then
 			time -p bin/ocean_cp -p${NTHREADS} -n514 -e1e-07 -r20000 -t28800
 			time -p bin/radiosity -p ${NTHREADS} -bf 1.5e-1 -batch -room
 			time -p bin/radix -p${NTHREADS} -r4096 -n4194304 -m214748364
-			time -p bin/streamcluster 10 20 32 4096 4096 1000 none output.txt ${NTHREADS}
 			time -p bin/swaptions -ns 16 -sm 10000 -nt ${NTHREADS}
 			(cd ext/splash2x/apps/water_nsquared/inputs; cat input.template | sed  -e "s/NUMPROCS/${NTHREADS}/" | time -p /root/bin/water_nsquared)
 			(cd ext/splash2x/apps/water_spatial/inputs; cat input.template | sed  -e "s/NUMPROCS/${NTHREADS}/" | time -p /root/bin/water_spatial)
 		done
 
 		# Those who can be executed with NTHREADS different from a power of two
-		for NTHREADS in 24
+		for NTHREADS in 24 48 96
 		do
 			cat ext/splash2x/apps/barnes/inputs/input.template | sed -e "s/NUMPROCS/${NTHREADS}/" | time -p bin/barnes ${NTHREADS}
                 	time -p bin/blackscholes ${NTHREADS} pkgs/apps/blackscholes/inputs/in_4K.txt prices.tx
@@ -46,9 +45,44 @@ then
                 	time -p bin/lu_cb -p${NTHREADS} -n512 -b16
                 	time -p bin/lu_ncb -p${NTHREADS} -n512 -b16
 			time -p bin/radiosity -p ${NTHREADS} -bf 1.5e-1 -batch -room
-			time -p bin/streamcluster 10 20 32 4096 4096 1000 none output.txt ${NTHREADS}
 			(cd ext/splash2x/apps/water_nsquared/inputs; cat input.template | sed  -e "s/NUMPROCS/${NTHREADS}/" | time -p /root/bin/water_nsquared)
                 	(cd ext/splash2x/apps/water_spatial/inputs; cat input.template | sed  -e "s/NUMPROCS/${NTHREADS}/" | time -p /root/bin/water_spatial)
+		done
+	elif [ "$2" = "large" ]
+	then
+		for NTHREADS in 1 2 4 8 16 32 64 128
+		do
+			cat ext/splash2x/apps/barnes/inputs/input.template | sed -e "s/NUMPROCS/${NTHREADS}/" | time -p bin/barnes ${NTHREADS}
+			time -p bin/blackscholes ${NTHREADS} pkgs/apps/blackscholes/inputs/in_64K.txt prices.txt
+			time -p bin/bodytrack pkgs/apps/bodytrack/inputs/sequenceB_4 4 4 4000 5 0 ${NTHREADS}
+			time -p bin/cholesky -p${NTHREADS} ext/splash2x/kernels/cholesky/inputs/tk29.O
+			(cd pkgs/apps/ferret/inputs; time -p ~/bin/ferret corel lsh queries 10 20 ${NTHREADS} output.txt)
+			time -p bin/fft -p${NTHREADS} -m24
+			time -p bin/fluidanimate ${NTHREADS} 5 pkgs/apps/fluidanimate/inputs/in_300K.fluid out.fluid
+			OMP_NUM_THREADS=${NTHREADS} time -p bin/freqmine pkgs/apps/freqmine/inputs/kosarak_990k.dat 790
+			time -p bin/lu_cb -p${NTHREADS} -n2048 -b16
+			time -p bin/lu_ncb -p${NTHREADS} -n2048 -b16
+			time -p bin/ocean_cp -p${NTHREADS} -n2050 -e1e-07 -r20000 -t28800
+			time -p bin/radiosity -p ${NTHREADS} -bf 1.5e-3 -batch -room
+			time -p bin/radix -p${NTHREADS} -r4096 -n67108864 -m2147483647
+			time -p bin/swaptions -ns 64 -sm 40000 -nt ${NTHREADS}
+			(cd ext/splash2x/apps/water_nsquared/inputs; cat input.template | sed  -e "s/NUMPROCS/${NTHREADS}/" | time -p /root/bin/water_nsquared)
+			(cd ext/splash2x/apps/water_spatial/inputs; cat input.template | sed  -e "s/NUMPROCS/${NTHREADS}/" | time -p /root/bin/water_spatial)
+		done
+
+		for NTHREADS in 24 48 96
+		do
+			cat ext/splash2x/apps/barnes/inputs/input.template | sed -e "s/NUMPROCS/${NTHREADS}/" | time -p bin/barnes ${NTHREADS}
+			time -p bin/blackscholes ${NTHREADS} pkgs/apps/blackscholes/inputs/in_64K.txt prices.txt
+			time -p bin/bodytrack pkgs/apps/bodytrack/inputs/sequenceB_4 4 4 4000 5 0 ${NTHREADS}
+                        time -p bin/cholesky -p${NTHREADS} ext/splash2x/kernels/cholesky/inputs/tk29.O
+                        (cd pkgs/apps/ferret/inputs; time -p ~/bin/ferret corel lsh queries 10 20 ${NTHREADS} output.txt)
+			OMP_NUM_THREADS=${NTHREADS} time -p bin/freqmine pkgs/apps/freqmine/inputs/kosarak_990k.dat 790
+                        time -p bin/lu_cb -p${NTHREADS} -n2048 -b16
+                        time -p bin/lu_ncb -p${NTHREADS} -n2048 -b16
+			time -p bin/radiosity -p ${NTHREADS} -bf 1.5e-3 -batch -room
+			(cd ext/splash2x/apps/water_nsquared/inputs; cat input.template | sed  -e "s/NUMPROCS/${NTHREADS}/" | time -p /root/bin/water_nsquared)
+                        (cd ext/splash2x/apps/water_spatial/inputs; cat input.template | sed  -e "s/NUMPROCS/${NTHREADS}/" | time -p /root/bin/water_spatial)
 		done
 	fi
 fi
